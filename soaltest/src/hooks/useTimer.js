@@ -1,0 +1,2 @@
+import { useEffect,useState } from 'react';
+export function useTimer(deadline,onExpire){const [remaining,setRemaining]=useState(()=>Math.max(0,deadline-Date.now()));useEffect(()=>{const tick=()=>{const n=Math.max(0,deadline-Date.now());setRemaining(n);if(!n)onExpire?.()};tick();const id=setInterval(tick,1000);return()=>clearInterval(id)},[deadline,onExpire]);return {remaining,formatted:`${String(Math.floor(remaining/60000)).padStart(2,'0')}:${String(Math.floor(remaining/1000)%60).padStart(2,'0')}`}}
